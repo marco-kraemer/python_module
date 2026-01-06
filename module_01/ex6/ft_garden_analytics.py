@@ -34,6 +34,17 @@ class GardenManager:
             for plant in self.garden.plants:
                 count += 1
             return (count)
+        
+        def plant_types(self):
+            regular = flowering = prize_flower = 0
+            for plant in self.garden.plants:
+                if plant.get_type() == "regular":
+                    regular += 1
+                elif plant.get_type() == "flowering":
+                    flowering += 1
+                elif plant.get_type() == "prize flower":
+                    prize_flower += 1
+            return regular, flowering, prize_flower
 
     def report(self, name):
         garden = self.gardens[name]
@@ -43,8 +54,9 @@ class GardenManager:
         for plant in garden.plants:
             print(f"- {plant.get_info()}")
 
-        print(f"\nPlants added: {stats.count_plants}, Total grwoth: {stats.count_plants}")
-
+        regular, flowering, prize_flower = stats.plant_types()
+        print(f"\nPlants added: {stats.count_plants()}, Total growth: {stats.count_plants()}")
+        print(f"Plant types: {regular} regular, {flowering} flowering, {prize_flower} prize_flower")
 
     @classmethod
     def create_garden_network(cls):
@@ -87,7 +99,7 @@ class Plant:
             print("Security: Negative age rejected")
 
     def get_info(self):
-        return f"{self.name} ({self.get_height()}cm, {self.get_age()} days old)"
+        return f"{self.name} (Regular): {self.get_height()}cm, {self.get_age()} days old"
     
     def grow(self):
         self.set_height(self.get_height() + 1)
@@ -102,19 +114,19 @@ class FloweringPlant(Plant):
         self.color = color
  
     def get_info(self):
-        return f"{self.name} (Flower): {self.get_height()}cm, {self.get_age()} days, {self.color} color"
+        return f"{self.name} (Flowering): {self.get_height()}cm, {self.get_age()} days, {self.color} flowers (blooming)"
 
     def get_type(self):
         return "flowering"
 
 class PrizeFlower(Plant):
-    def __init__(self, name, height, age, color, prize_points):
+    def __init__(self, name, height, age, color, prize):
         super().__init__(name, height, age)
         self.color = color
-        self.prize_points = prize_points
+        self.prize = prize
 
     def get_info(self):
-        return f"{self.name} (Flower): {self.get_height()}cm, {self.get_age()} days, {self.color} color, Prize points: {self.prize_points}"
+        return f"{self.name} (Prize Flower): {self.get_height()}cm, {self.get_age()} days, {self.color} flowers (blooming), {self.prize} prize flowers"
 
     def get_type(self):
         return "prize flower"
@@ -157,4 +169,6 @@ if __name__ == "__main__":
     print(f"Height validation test: {GardenManager.height_validation(rose.get_height())}")
     print("\n")
     garden_manager.report("Alice")
+    print("\n")
+    garden_manager.report("Bob")
     GardenManager.create_garden_network()
