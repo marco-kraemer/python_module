@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+def garden_operations():
+    try:
+        print("\n\nTesting ValueError...")
+        int("abc")
+    except ValueError:
+        print("Caught ValueError: invalid literal for int()")
+    try:
+        print("\n\nTesting ZeroDivisionError...")
+        x = 10 / 0
+    except ZeroDivisionError:
+        print("Caught ZeroDivisionError: division by zero")
+    try:
+        print("\n\nFileNotFoundError...")
+        open("missing.txt")
+    except FileNotFoundError:
+        print("Caught FileNotFoundError: No such file 'missing.txt'")
+    try:
+        print("\n\nTesting KeyError...")
+        plants = {
+            "rose" : 60,
+            "oak" : 30
+        }
+        value = plants["missing_plant"]
+    except KeyError:
+        print("Caught KeyError: 'missing_plant'")
+
+
+def test_error_types():
+    try:
+        garden_operations():
+    except:
+        print()
+
+if __name__ == "__main__":
+    print("=== Garden Error Types Demo ===")
+    garden_operations();
+    print("All error types tested successfully!")
