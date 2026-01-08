@@ -28,12 +28,17 @@ def garden_operations():
 
 
 def test_error_types():
+    print("=== Garden Error Types Demo ===")
+
+    garden_operations()
+    
+    print("\n\nTesting multiple errors together...")
     try:
-        garden_operations():
-    except:
-        print()
+        data = {}
+        int("hello") / data["key"]
+    except (ValueError, ZeroDivisionError, KeyError):
+        print("Caught an error, but program continues!")
+    print("\n\nAll error types tested successfully!")
 
 if __name__ == "__main__":
-    print("=== Garden Error Types Demo ===")
-    garden_operations();
-    print("All error types tested successfully!")
+    test_error_types()
