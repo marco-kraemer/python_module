@@ -72,14 +72,47 @@ class TextProcessor(DataProcessor):
         return f"Output: {result}"
 
 class LogProcessor(DataProcessor):
-    def process(self):
-        pass
+    def process(self, data:any) -> str:
+        if self.validate(data):
+            if "ERROR" in data:
+                s = data[7:]
+                return f"ERROR level detected: {s}"
+            if "INFO" in data:
+                s = data[7:]
+                return f"INFO level detected: {s}"
 
-    def validate(self):
-        pass
 
-    def format_output(self):
-        pass
+    def validate(self, data: Any) -> bool:
+        if not data:
+            return False
+        try:
+            data + ""
+            for _ in data:
+                pass
+            if not "ERROR" and not "INFO" in data:
+                return False
+            print("Validation: Text data verified")
+            return True
+        except:
+            return False
+
+    def format_output(self, result: str) -> str:
+        if "ERROR" in result:
+            return f"[ALERT] {result}"
+        elif "ERROR" in result:
+            return f"[INFO] {result}"
+
+
+def dispatch(data, processors):
+    for processor in processors:
+        try:
+            if processor.validate(data):
+                s = processor.process(data)
+                return s.format_output(s)
+        except:
+            pass
+        return None
+
 
 print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
@@ -96,3 +129,30 @@ data = "Hello Nexus World"
 print(f"Processing data: {data}")
 s = processor.process(data)
 print(processor.format_output(s))
+
+processor = LogProcessor()
+print("\nInitializing Log Processor...")
+data = "ERROR: Connection timeout"
+print(f"Processing data: {data}")
+s = processor.process(data)
+print(processor.format_output(s))
+
+print("\n=== Polymorphic Processing Demo ===")
+print("Processing multiple data types through same interface...")
+processors = [
+    NumericProcessor(),
+    TextProcessor(),
+    LogProcessor()
+]
+
+data_sample = [
+    [1,2,3],
+    "Hello World",
+    "INFO: System ready"
+]
+
+count = 0
+for data in data_sample:
+    r = dispatch(data, processors)
+    print(f"Result {count}: {r}")
+    count += 1
