@@ -16,7 +16,7 @@ class DataProcessor(ABC):
         pass
 
     def format_output(self, result: str) -> str:
-        pass
+        return result
 
 class NumericProcessor(DataProcessor):
     def process(self, data: List[int]) -> str:
