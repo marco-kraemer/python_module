@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
+
 class GardenError(Exception):
     pass
 
+
 class PlantError(GardenError):
     pass
+
 
 class Plant:
     def __init__(self, plant, water_level, sunlight_hours):
@@ -13,6 +16,7 @@ class Plant:
         self.plant = plant
         self.water_level = water_level
         self.sunlight_hours = sunlight_hours
+
 
 class GardenManager:
     def __init__(self):
@@ -38,19 +42,33 @@ class GardenManager:
         if not plant.plant:
             raise PlantError("Plant name cannot be empty!")
         elif plant.water_level > 10:
-            raise PlantError(f"checking {plant.plant}: Water level {plant.water_level} is too high (max 10)")
+            raise PlantError(
+                f"checking {plant.plant}:\
+Water level {plant.water_level} is too high (max 10)"
+            )
         elif plant.water_level < 1:
-            raise PlantError(f"checking {plant.plant}: Water level {plant.water_level} is too low (min 1)")
+            raise PlantError(
+                f"checking {plant.plant}:\
+Water level {plant.water_level} is too low (min 1)"
+            )
         elif plant.sunlight_hours > 12:
-            raise PlantError(f"checking {plant.plant}: Sunlight hours {plant.sunlight_hours} is too high (max 12)")
+            raise PlantError(
+                f"checking {plant.plant}:\
+Sunlight hours {plant.sunlight_hours} is too high (max 12)"
+            )
         elif plant.sunlight_hours < 2:
-            raise PlantError(f"checking {plant.plant}: Sunlight hours {plant.sunlight_hours} is too low (min 2)")
-        return f"{plant.plant}: healthy (water: {plant.water_level}, sun: {plant.sunlight_hours})"
+            raise PlantError(
+                f"checking {plant.plant}:\
+Sunlight hours {plant.sunlight_hours} is too low (min 2)"
+            )
+        return f"{plant.plant}: healthy (water: {plant.water_level}, sun:\
+{plant.sunlight_hours})"
+
 
 def garden_manager():
     print("=== Garden Management System ===")
     garden = GardenManager()
- 
+
     print("\n\nAdding plants to garden...")
     try:
         tomato = Plant("tomato", 3, 5)
@@ -58,7 +76,6 @@ def garden_manager():
         carrot = Plant("carrot", 25, 80)
     except PlantError as e:
         print(f"Error: {e}")
-
 
     try:
         garden.add_plants(tomato)
@@ -71,8 +88,8 @@ def garden_manager():
         garden.add_plants(None)
     except PlantError as e:
         print(f"Error: {e}")
-    
-    print ("\n\nWatering plants...")
+
+    print("\n\nWatering plants...")
     garden.water_plants()
 
     print("\n\nChecking plant health...")
@@ -83,7 +100,7 @@ def garden_manager():
     except PlantError as e:
         print(f"Error {e}")
 
-    print ("\n\nWatering plants...")
+    print("\n\nWatering plants...")
     garden.water_plants()
     garden.water_plants()
     garden.water_plants()
@@ -95,6 +112,7 @@ def garden_manager():
         print(garden.check_plant_health(carrot))
     except PlantError as e:
         print(f"Error {e}")
+
 
 if __name__ == "__main__":
     garden_manager()

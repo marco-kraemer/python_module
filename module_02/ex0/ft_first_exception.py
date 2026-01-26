@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 def check_temperature(temp_str):
     try:
         x = int(temp_str)
@@ -9,8 +10,9 @@ def check_temperature(temp_str):
             print(f"{x}°C is too hot for plants (max 40°C)")
         else:
             print(f"Temperature {x}°C is perfect for plants!")
-    except:
+    except ValueError:
         print(f"'{temp_str}' is not a valid number!")
+
 
 if __name__ == "__main__":
     check_temperature("hello")

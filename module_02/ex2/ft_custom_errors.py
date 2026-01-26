@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
 
+
 class GardenError(Exception):
     pass
+
 
 class PlantError(GardenError):
     pass
 
+
 class WaterError(GardenError):
     pass
+
 
 def check_plant_wilting(plant):
     raise PlantError(f"The {plant} is wilting!")
 
+
 def check_water():
     raise WaterError("Not enought water in the tank!")
+
 
 if __name__ == "__main__":
     print("=== Custom Garden Errors Demo ===")
@@ -23,7 +29,7 @@ if __name__ == "__main__":
         check_plant_wilting("tomato")
     except PlantError as e:
         print(f"Caught PlantError: {e}")
-    
+
     print("\n\nTesting Water Plant...")
     try:
         check_water()
