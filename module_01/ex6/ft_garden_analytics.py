@@ -5,7 +5,7 @@ class Garden:
     def __init__(self, name):
         self.name = name
         self.plants = []
-    
+
     def add_plant(self, plant):
         self.plants.append(plant)
         print(f"Added {plant.name} to {self.name}'s garden")
@@ -15,26 +15,27 @@ class Garden:
         for plant in self.plants:
             plant.grow()
 
+
 class GardenManager:
     gardens = 0
 
     def __init__(self):
         self.gardens = {}
-    
+
     def add_garden(self, garden):
         GardenManager.gardens += 1
         self.gardens[garden.name] = garden
-    
+
     class GardenStats:
         def __init__(self, garden):
             self.garden = garden
-        
+
         def count_plants(self):
             count = 0
-            for plant in self.garden.plants:
+            for _ in self.garden.plants:
                 count += 1
-            return (count)
-        
+            return count
+
         def plant_types(self):
             regular = flowering = prize_flower = 0
             for plant in self.garden.plants:
@@ -55,20 +56,26 @@ class GardenManager:
             print(f"- {plant.get_info()}")
 
         regular, flowering, prize_flower = stats.plant_types()
-        print(f"\nPlants added: {stats.count_plants()}, Total growth: {stats.count_plants()}")
-        print(f"Plant types: {regular} regular, {flowering} flowering, {prize_flower} prize_flower")
+        print(
+            f"\nPlants added: {stats.count_plants()},\
+Total growth: {stats.count_plants()}"
+        )
+        print(
+            f"Plant types: {regular} regular, {flowering} flowering,\
+{prize_flower} prize_flower"
+        )
 
     @classmethod
     def create_garden_network(cls):
         print(f"Total gardens managed: {cls.gardens}")
-    
+
     @staticmethod
     def height_validation(height):
         if height >= 0:
             return True
         else:
             return False
-        
+
 
 class Plant:
     def __init__(self, name, height, age):
@@ -86,21 +93,25 @@ class Plant:
 
     def set_height(self, height):
         if height >= 0:
-            self.__height =  height
+            self.__height = height
         else:
             print(f"Invalid operation attempted: height {height}cm [REJECTED]")
             print("Security: Negative height rejected")
 
     def set_age(self, age):
         if age >= 0:
-            self.__age =  age
+            self.__age = age
         else:
-            print(f"Invalid operation attempted: age {age} days old [REJECTED]")
+            print(
+                f"Invalid operation attempted:\
+age {age} days old [REJECTED]"
+            )
             print("Security: Negative age rejected")
 
     def get_info(self):
-        return f"{self.name} (Regular): {self.get_height()}cm, {self.get_age()} days old"
-    
+        return f"{self.name} (Regular): {self.get_height()}cm,\
+{self.get_age()} days old"
+
     def grow(self):
         self.set_height(self.get_height() + 1)
         print(f"{self.name} grew 1cm ({self.get_height()}cm now).")
@@ -108,28 +119,33 @@ class Plant:
     def get_type(self):
         return "regular"
 
+
 class FloweringPlant(Plant):
     def __init__(self, name, height, age, color):
         super().__init__(name, height, age)
         self.color = color
- 
+
     def get_info(self):
-        return f"{self.name} (Flowering): {self.get_height()}cm, {self.get_age()} days, {self.color} flowers (blooming)"
+        return f"{self.name} (Flowering): {self.get_height()}cm,\
+{self.get_age()} days, {self.color} flowers (blooming)"
 
     def get_type(self):
         return "flowering"
 
-class PrizeFlower(Plant):
+
+class PrizeFlower(FloweringPlant):
     def __init__(self, name, height, age, color, prize):
-        super().__init__(name, height, age)
-        self.color = color
+        super().__init__(name, height, age, color)
         self.prize = prize
 
     def get_info(self):
-        return f"{self.name} (Prize Flower): {self.get_height()}cm, {self.get_age()} days, {self.color} flowers (blooming), {self.prize} prize flowers"
+        return f"{self.name} (Prize Flower): {self.get_height()}cm,\
+{self.get_age()} days, {self.color} flowers (blooming),\
+{self.prize} prize flowers"
 
     def get_type(self):
         return "prize flower"
+
 
 if __name__ == "__main__":
     print("=== Garden Management System Demo ===\n\n")
@@ -166,7 +182,10 @@ if __name__ == "__main__":
     print("\n")
     charlie_garden.grow_plants()
     print("\n")
-    print(f"Height validation test: {GardenManager.height_validation(rose.get_height())}")
+    print(
+        f"Height validation test:\
+{GardenManager.height_validation(rose.get_height())}"
+    )
     print("\n")
     garden_manager.report("Alice")
     print("\n")

@@ -1,10 +1,36 @@
 #!/usr/bin/env python3
+"""
+Garden Plant Registry Module.
+
+This module defines a Plant class and demonstrates how to
+store and display basic plant information such as name,
+height, and age.
+"""
+
 
 class Plant:
-    def __init__(self, name, height, age):
+    """
+    Represents a plant in the garden registry.
+
+    Attributes:
+        name (str): Name of the plant.
+        height (float): Height of the plant in centimeters.
+        age (int): Age of the plant in days.
+    """
+
+    def __init__(self, name: str, height: float, age: int) -> None:
+        """
+        Initialize a Plant instance.
+
+        Args:
+            name (str): The name of the plant.
+            height (float): Height of the plant in centimeters.
+            age (int): Age of the plant in days.
+        """
         self.name = name
         self.height = height
         self.age = age
+
 
 if __name__ == "__main__":
     p1 = Plant("Rose", 25, 30)
